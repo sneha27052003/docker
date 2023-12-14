@@ -1,0 +1,25 @@
+version: '3'
+services:
+  mysql-server:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    networks:
+      - snehal-network1
+  server-container:
+    build:
+      context: .
+      dockerfile: dockerfile
+    image: snehal-nodeform
+    ports:
+      - "5000:5000"
+    networks:
+      - snehal-network1
+    depends_on:
+      - mysql-server
+
+networks:
+  snehal-network1:
+    driver: bridge
